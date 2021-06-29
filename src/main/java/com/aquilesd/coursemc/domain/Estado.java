@@ -1,5 +1,6 @@
 package com.aquilesd.coursemc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.aspectj.weaver.GeneratedReferenceTypeDelegate;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Estado implements Serializable {
     private Integer id;
     private String nome;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "estado")
     List<Cidade> cidades = new ArrayList<>();
 
