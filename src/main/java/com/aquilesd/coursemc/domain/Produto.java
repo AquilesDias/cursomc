@@ -29,6 +29,8 @@ public class Produto implements Serializable {
     )
     List<Categoria> categorias = new ArrayList<>();
 
+//    List<Pedido> pedidos = new ArrayList<>();
+
     public Produto() {}
 
     public Produto(Integer id, String nome, Double preco) {
