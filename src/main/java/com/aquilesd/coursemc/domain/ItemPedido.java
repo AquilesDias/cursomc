@@ -1,5 +1,7 @@
 package com.aquilesd.coursemc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -10,6 +12,7 @@ public class ItemPedido implements Serializable {
 
     private static final Long serialVersionUID = 1L;
 
+    @JsonIgnore
     @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
 
@@ -33,6 +36,7 @@ public class ItemPedido implements Serializable {
         return id.getProduto();
     }
 
+    @JsonIgnore
     public Pedido getPedido(){
         return id.getPedido();
     }
