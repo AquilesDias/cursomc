@@ -1,7 +1,10 @@
 package com.aquilesd.coursemc.dto;
 
 import com.aquilesd.coursemc.domain.Categoria;
+//import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class CategoriaDTO implements Serializable {
@@ -9,6 +12,9 @@ public class CategoriaDTO implements Serializable {
     private static final Long serialVersionUID = 1L;
 
     private Integer id;
+
+    @NotEmpty(message = "Preenchimento obrigatório")
+    @Size(min = 8, max = 80, message = "O tamanho deve ser entre 8 e 80 letras")
     private String nome;
 
     public CategoriaDTO(){}

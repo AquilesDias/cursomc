@@ -1,6 +1,7 @@
 package com.aquilesd.coursemc.services;
 
 import com.aquilesd.coursemc.domain.Categoria;
+import com.aquilesd.coursemc.dto.CategoriaDTO;
 import com.aquilesd.coursemc.repositories.CategoriaRepository;
 import com.aquilesd.coursemc.services.exceptions.DataIntegrityException;
 import com.aquilesd.coursemc.services.exceptions.ObjectNotFoundException;
@@ -63,5 +64,9 @@ public class CategoriaService {
                 throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos");
         }
 
+    }
+
+    public Categoria fromDTO(CategoriaDTO objDto){
+        return new Categoria(objDto.getId(), objDto.getNome());
     }
 }
