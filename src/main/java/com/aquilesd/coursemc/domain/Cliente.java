@@ -1,9 +1,7 @@
 package com.aquilesd.coursemc.domain;
 
 import com.aquilesd.coursemc.domain.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -44,7 +42,7 @@ public class Cliente implements Serializable {
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipo = tipo.getCode();
+        this.tipo = (tipo == null) ? null: tipo.getCode();
     }
 
     public Integer getId() {
