@@ -1,14 +1,19 @@
 package com.aquilesd.coursemc.resources;
 
+import com.aquilesd.coursemc.domain.Categoria;
 import com.aquilesd.coursemc.domain.Cliente;
 import com.aquilesd.coursemc.dto.ClienteDTO;
+import com.aquilesd.coursemc.dto.ClienteNewDTO;
 import com.aquilesd.coursemc.services.ClienteService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +23,15 @@ public class ClienteResource {
 
     @Autowired
     ClienteService clienteService;
+
+    @PostMapping
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto){
+        Cliente obj = clienteService.fromDTO(objDto);
+        obj =  clienteService.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> find(@PathVariable Integer id){
