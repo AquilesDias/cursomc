@@ -1,23 +1,45 @@
 package com.aquilesd.coursemc.dto;
 
+import com.aquilesd.coursemc.services.validation.ClienteInsert;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 
     private static final Long serialVersionUID = 1L;
 
+    @NotEmpty(message = "Nome obrigatório")
+    @Length(min = 4, max = 200, message = "O tamanho deve ser entre 4 e 200 caracteres")
     private String nome;
+
+    @NotEmpty(message = "E-email Obrigatório!")
+    @Email(message = "E-mail inválido!")
     private String email;
+
+    @NotEmpty(message = "Preenchimento obrigátorio")
     private String cpfOuCnpj;
+
     private Integer tipo;
 
-    private String logadouro;
+    @NotEmpty(message = "Preenchimento obrigátorio")
+    private String logradouro;
+
+    @NotEmpty(message = "Preenchimento obrigátorio")
     private String numero;
+
     private String complemento;
     private String bairro;
+
+    @NotEmpty(message = "Preenchimento obrigátorio")
     private String cep;
 
+    @NotEmpty(message = "Preenchimento obrigátorio")
     private String telefone1;
+
     private String telefone2;
     private String telefone3;
 
@@ -59,12 +81,12 @@ public class ClienteNewDTO implements Serializable {
         this.tipo = tipo;
     }
 
-    public String getLogadouro() {
-        return logadouro;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setLogadouro(String logadouro) {
-        this.logadouro = logadouro;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
     public String getNumero() {
