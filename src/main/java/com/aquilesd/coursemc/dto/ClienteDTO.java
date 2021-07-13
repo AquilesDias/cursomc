@@ -1,6 +1,7 @@
 package com.aquilesd.coursemc.dto;
 
 import com.aquilesd.coursemc.domain.Cliente;
+import com.aquilesd.coursemc.services.validation.ClienteUpdate;
 import org.hibernate.validator.constraints.Length;
 
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
