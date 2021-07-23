@@ -2,11 +2,13 @@ package com.aquilesd.coursemc.domain;
 
 import com.aquilesd.coursemc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
+@JsonTypeName("pagamentoComBoleto")
 public class PagamentoComBoleto extends Pagamento{
 
     private static final Long serialVersionUID = 1L;

@@ -94,6 +94,14 @@ public class Pedido implements Serializable {
         this.itens = itens;
     }
 
+    public Date getInstante() {
+        return instante;
+    }
+
+    public void setInstante(Date instante) {
+        this.instante = instante;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
