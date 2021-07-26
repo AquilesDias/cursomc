@@ -3,6 +3,7 @@ package com.aquilesd.coursemc.config;
 import com.aquilesd.coursemc.services.DBService;
 import com.aquilesd.coursemc.services.EmailService;
 import com.aquilesd.coursemc.services.MockEmailService;
+import com.aquilesd.coursemc.services.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +24,13 @@ public class TestConfig {
         return true;
     }
 
+//    @Bean
+//    public EmailService emailService(){
+//        return new MockEmailService();
+//    }
+
     @Bean
     public EmailService emailService(){
-        return new MockEmailService();
+        return new SmtpEmailService();
     }
 }
