@@ -3,11 +3,14 @@ package com.aquilesd.coursemc.services;
 import com.aquilesd.coursemc.domain.Cidade;
 import com.aquilesd.coursemc.domain.Cliente;
 import com.aquilesd.coursemc.domain.Endereco;
+import com.aquilesd.coursemc.domain.enums.Perfil;
 import com.aquilesd.coursemc.domain.enums.TipoCliente;
 import com.aquilesd.coursemc.dto.ClienteDTO;
 import com.aquilesd.coursemc.dto.ClienteNewDTO;
 import com.aquilesd.coursemc.repositories.ClienteRepository;
 import com.aquilesd.coursemc.repositories.EnderecoRepository;
+import com.aquilesd.coursemc.security.UserSS;
+import com.aquilesd.coursemc.services.exceptions.AuthorizationException;
 import com.aquilesd.coursemc.services.exceptions.DataIntegrityException;
 import com.aquilesd.coursemc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,12 @@ public class ClienteService {
     EnderecoRepository enderecoRepository;
 
     public Cliente find(Integer id){
+
+        UserSS user = UserService.authenticated();
+        if(user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())){
+            throw new AuthorizationException("ACESSO NEGADO!");
+        }
+
         Optional<Cliente> obj = clienteRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
                 "Objeto não encontrado. Id" + id + ". Tipo: " +Cliente.class.getName()));
