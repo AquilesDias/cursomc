@@ -1,5 +1,6 @@
 package com.aquilesd.coursemc.services;
 
+import com.aquilesd.coursemc.domain.Cliente;
 import com.aquilesd.coursemc.domain.ItemPedido;
 import com.aquilesd.coursemc.domain.PagamentoComBoleto;
 import com.aquilesd.coursemc.domain.Pedido;
@@ -8,8 +9,13 @@ import com.aquilesd.coursemc.repositories.ItemPedidoRepository;
 import com.aquilesd.coursemc.repositories.PagamentoRepository;
 import com.aquilesd.coursemc.repositories.PedidoRepository;
 import com.aquilesd.coursemc.repositories.ProdutoRepository;
+import com.aquilesd.coursemc.security.UserSS;
+import com.aquilesd.coursemc.services.exceptions.AuthorizationException;
 import com.aquilesd.coursemc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,5 +79,17 @@ public class PedidoService {
             emailService.sendOrderConfirmationHtmlEmail(obj);
             return obj;
 
+    }
+
+    public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+
+        UserSS user = UserService.authenticated();
+        if(user==null){
+            throw new AuthorizationException("Acesso Negado!");
+        }
+
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        Cliente cliente = clienteService.find(user.getId());
+        return pedidoRepository.findByCliente(cliente, pageRequest);
     }
 }
